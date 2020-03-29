@@ -61,7 +61,6 @@ class AudioPeaks {
   }
 
   checkSourcePathAccessiblility(sourcePath, cb) {
-    if (sourcePath.match(/^(?:\w+:)?\/\/(\S+)$/)) {
       request(sourcePath, { method: 'HEAD' }, (err, res) => {
         if (err) {
           return cb(err);
@@ -73,15 +72,6 @@ class AudioPeaks {
 
         cb();
       });
-    } else {
-      fs.access(sourcePath, err => {
-        if (err) {
-          return cb(new Error(`File ${sourcePath} not found`));
-        }
-
-        cb();
-      });
-    }
   }
 
   /**
